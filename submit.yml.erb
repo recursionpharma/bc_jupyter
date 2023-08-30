@@ -1,0 +1,8 @@
+---
+script:
+  native:
+  - "--mem=<%= memory.blank? ? 2 : memory.to_i %>G"
+  - "--cpus-per-task=<%= num_cores.blank? ? 1 : num_cores.to_i %>"
+
+batch_connect:
+  template: "basic"

@@ -1,0 +1,68 @@
+<%-
+  groups = OodSupport::User.new.groups.sort_by(&:id).tap { |groups|
+    groups.unshift(groups.delete(OodSupport::Process.group))
+  }.map(&:name).grep(/^P./)
+-%>
+---
+cluster:
+  - "slurm"
+form:
+  - bc_queue
+  - mode
+  - cuda_version
+  - version
+  - bc_num_hours
+  - num_cores
+  - memory
+  - modules
+  - extra_jupyter_args
+  - bc_account
+  - bc_num_slots
+  - classroom 
+attributes:
+  cluster: "slurm"   
+  modules: "python"
+  cuda_version: "cuda11.8/toolkit/11.8.0"
+  classroom: 0
+  version: "3.1"
+  bc_account: null
+  bc_num_slots: null
+  bc_queue:
+    label: Slurm Partition
+    widget: select
+    options:
+      - ["batch", "batch"]
+      - ["interactive", "interactive"]
+      - ["mem", "mem"]
+  extra_jupyter_args: ""
+  bc_num_hours:
+    widget: "number_field"
+    label: "Number of Hours"
+    value: 1
+    min: 1
+    max: 24
+    required: true
+    help: "Specify the number of hours. Min: 1hr, Max: 24hrs"
+  num_cores:
+    widget: "number_field"
+    label: "Number of Cores"
+    value: 1
+    min: 1
+    max: 16
+    required: true
+    help: "Specify the number of cores for the job. Max: 16"
+  memory:
+    widget: "number_field"
+    label: "Memory (GB)"
+    value: 2
+    min: 1
+    max: 32
+    required: true
+    help: "Specify the amount of memory in MB. Min: 1GB - Max: 32GB"
+  mode:
+    widget: "radio"
+    value: "1"
+    options:
+      - ["Jupyter Lab", "1"]
+      - ["Jupyter Notebook", "0"]
+  
