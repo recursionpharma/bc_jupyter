@@ -8,6 +8,7 @@ cluster:
   - "slurm"
 form:
   - bc_queue
+  - node_select
   - mode
   - cuda_version
   - version
@@ -20,6 +21,12 @@ form:
   - bc_num_slots
   - classroom 
 attributes:
+  node_select:
+    label: Node
+    widget: select
+    options:
+      - ["mem1", "mem1"]
+      - ["mem2", "mem2"]
   cluster: "slurm"   
   modules: "python"
   cuda_version: "cuda11.8/toolkit/11.8.0"
@@ -31,8 +38,6 @@ attributes:
     label: Slurm Partition
     widget: select
     options:
-      - ["batch", "batch"]
-      - ["interactive", "interactive"]
       - ["mem", "mem"]
   extra_jupyter_args: ""
   bc_num_hours:
@@ -56,9 +61,8 @@ attributes:
     label: "Memory (GB)"
     value: 2
     min: 1
-    max: 32
     required: true
-    help: "Specify the amount of memory in MB. Min: 1GB - Max: 32GB"
+    help: "Specify the amount of memory in MB. Min: 1GB - Max: UNLIMITED"
   mode:
     widget: "radio"
     value: "1"
