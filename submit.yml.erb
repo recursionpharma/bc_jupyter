@@ -3,6 +3,7 @@ script:
   native:
   - "--mem=<%= memory.blank? ? 2 : memory.to_i %>G"
   - "--cpus-per-task=<%= num_cores.blank? ? 1 : num_cores.to_i %>"
-  - "--nodelist=<%= node_select.blank? ? 'mem1' : node_select %>"
+  - "--gpus-per-node=<%= gpu_type.blank? ? '1080ti' : gpu_type %>:<%= num_gpus.blank? ? 1 : num_gpus.to_i %>"
+
 batch_connect:
   template: "basic"

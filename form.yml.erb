@@ -1,32 +1,23 @@
-<%-
-  groups = OodSupport::User.new.groups.sort_by(&:id).tap { |groups|
-    groups.unshift(groups.delete(OodSupport::Process.group))
-  }.map(&:name).grep(/^P./)
--%>
 ---
 cluster:
   - "slurm"
 form:
   - bc_queue
-  - node_select
   - mode
   - cuda_version
   - version
   - bc_num_hours
   - num_cores
+  - gpu_type
+  - num_gpus
   - memory
   - modules
   - extra_jupyter_args
   - bc_account
   - bc_num_slots
-  - classroom 
+  - classroom
+
 attributes:
-  node_select:
-    label: Node
-    widget: select
-    options:
-      - ["mem1", "mem1"]
-      - ["mem2", "mem2"]
   cluster: "slurm"   
   modules: "python"
   cuda_version: "cuda11.8/toolkit/11.8.0"
@@ -34,11 +25,26 @@ attributes:
   version: "3.1"
   bc_account: null
   bc_num_slots: null
+  gpu_type:
+    label: GPU Type
+    widget: select
+    options:
+      - ["none", "none"]
+      - ["a100", "a100"]
+      - ["1080ti", "1080ti"] 
+      - ["v100", "v100"]
+    class: "gpu-selection"
   bc_queue:
     label: Slurm Partition
     widget: select
     options:
+      - ["batch", "batch"]
       - ["mem", "mem"]
+      - ["debug", "debug"]
+      - ["long", "long"]
+      - ["interactive", "interactive"]
+      - ["large", "large"]
+      - ["preempt", "preempt"]
   extra_jupyter_args: ""
   bc_num_hours:
     widget: "number_field"
@@ -56,6 +62,13 @@ attributes:
     max: 16
     required: true
     help: "Specify the number of cores for the job. Max: 16"
+  num_gpus:
+    widget: "number_field"
+    label: "Number of GPUS"
+    value: 0
+    required: true
+    help: "Specify the number of cores for the job"
+    class: "gpu-count-field"
   memory:
     widget: "number_field"
     label: "Memory (GB)"
@@ -69,4 +82,4 @@ attributes:
     options:
       - ["Jupyter Lab", "1"]
       - ["Jupyter Notebook", "0"]
-  
+
