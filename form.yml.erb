@@ -19,7 +19,6 @@ form:
   - bc_account
   - bc_num_slots
   - classroom 
-  - custom_args
 attributes:
   cluster: "slurm"   
   modules: "python"
@@ -66,8 +65,3 @@ attributes:
     options:
       - ["Jupyter Lab", "1"]
       - ["Jupyter Notebook", "0"]
-  custom_args:
-    widget: "text_field"
-    label: "Additional Slurm Arguments (Optional)"
-    value: ""
-    help: "Add any additional args. I.e. --reservation=my_reservation -w node_name etc"
