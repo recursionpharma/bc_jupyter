@@ -1,8 +1,17 @@
 ---
 script:
   native:
-  - "--mem=<%= memory.blank? ? 2 : memory.to_i %>G"
-  - "--cpus-per-task=<%= num_cores.blank? ? 1 : num_cores.to_i %>"
+  - "-p"
+  - "<%= bc_queue %>"
+  - "--time"
+  - "<%= bc_num_hours %>:00:00"
+  - "--nodes=1"
+  - "--ntasks-per-node=1"
+  - "--cpus-per-task=<%= num_cores %>"
+  - "--mem=<%= memory %>G"
+  <%- unless custom_slurm_args.to_s.empty? -%>
+  - "<%= custom_slurm_args %>"
+  <%- end -%>
 
 batch_connect:
   template: "basic"

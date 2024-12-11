@@ -18,7 +18,8 @@ form:
   - extra_jupyter_args
   - bc_account
   - bc_num_slots
-  - classroom 
+  - classroom
+  - custom_slurm_args
 attributes:
   cluster: "slurm"   
   modules: "python"
@@ -58,10 +59,14 @@ attributes:
     min: 1
     max: 32
     required: true
-    help: "Specify the amount of memory in MB. Min: 1GB - Max: 32GB"
+    help: "Specify the amount of memory in GB. Min: 1GB - Max: 32GB"
   mode:
     widget: "radio"
     value: "1"
     options:
       - ["Jupyter Lab", "1"]
       - ["Jupyter Notebook", "0"]
+  custom_slurm_args:
+    label: "Additional Slurm Arguments"
+    widget: text_field
+    help: "Enter any additional Slurm arguments (optional)"
