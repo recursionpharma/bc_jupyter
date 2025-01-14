@@ -32,11 +32,14 @@ attributes:
     label: Slurm Partition
     widget: select
     options:
-      - ["batch", "batch"]
-      - ["interactive", "interactive"]
+      - ["ampere", "ampere"]
+      - ["cpu", "cpu"]
+      - ["def", "def"]
+      - ["hopper", "hopper"]
       - ["mem", "mem"]
+      - ["small", "small"]
   extra_jupyter_args: ""
-  bc_num_hours:
+    bc_num_hours:
     widget: "number_field"
     label: "Number of Hours"
     value: 1
