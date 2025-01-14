@@ -3,9 +3,11 @@ script:
   native:
   - "--mem=<%= memory.blank? ? 2 : memory.to_i %>G"
   - "--cpus-per-task=<%= num_cores.blank? ? 1 : num_cores.to_i %>"
+  - "<% if gpu_type == 'any' %>--gpus-per-node=<%= num_gpus.blank? ? 1 : num_gpus.to_i %><% else %>--gpus-per-node=<%= gpu_type %>:<%= num_gpus.blank? ? 1 : num_gpus.to_i %><% end %>"
   <% custom_args.scan(/--\w+=\S+|-\w+\s+\S+/).each do |arg| %>
   - "<%= arg %>"
   <% end %>
 
 batch_connect:
   template: "basic"
+

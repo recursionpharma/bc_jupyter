@@ -14,6 +14,8 @@ form:
   - bc_num_hours
   - num_cores
   - memory
+  - num_gpus
+  - gpu_type
   - modules
   - extra_jupyter_args
   - bc_account
@@ -21,6 +23,23 @@ form:
   - classroom 
   - custom_args
 attributes:
+  num_gpus:
+    widget: "number_field"
+    label: "Number of GPUS"
+    value: 0
+    required: true
+    help: "Specify the number of cores for the job"
+    class: "gpu-count-field"
+  gpu_type:
+    label: GPU Type
+    widget: select
+    options:
+      - ["any", "any"]
+      - ["h100", "h100"]
+      - ["a100", "a100"]
+      - ["1080_ti", "1080_ti"]
+      - ["v100", "v100"]
+    class: "gpu-selection"
   cluster: "slurm"   
   modules: "python"
   cuda_version: "cuda11.8/toolkit/11.8.0"
@@ -32,9 +51,12 @@ attributes:
     label: Slurm Partition
     widget: select
     options:
-      - ["batch", "batch"]
-      - ["interactive", "interactive"]
+      - ["ampere", "ampere"]
+      - ["cpu", "cpu"]
+      - ["def", "def"]
+      - ["hopper", "hopper"]
       - ["mem", "mem"]
+      - ["small", "small"]
   extra_jupyter_args: ""
   bc_num_hours:
     widget: "number_field"
@@ -71,3 +93,4 @@ attributes:
     label: "Slurm Arguments"
     value: ""
     help: "Add any additional args. I.e. --reservation=my_reservation"
+
